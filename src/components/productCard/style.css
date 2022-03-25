@@ -1,0 +1,31 @@
+.productCard {
+    height: 220px;
+    width: 220px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid rgba(175, 174, 174, 0.342);
+    box-shadow: 0px 1px 3px rgb(122, 120, 120);
+    background-color: white;
+}
+
+.productCard img {
+    height: 120px;
+}
+
+.productTitle {
+    
+}
+
+.addToCartBtn {
+    width: 80px;
+    height: 30px;
+    margin: 0px auto;
+    background-color: rgb(75, 139, 38);
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+.addToCartBtn:hover {
+    background-color: rgb(62, 109, 34);
+}
