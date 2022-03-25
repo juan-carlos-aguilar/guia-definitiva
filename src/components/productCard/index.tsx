@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './style.css';
 
+export class ProductCard extends Component {
+  render() {
+    const { product } = this.props;
 
-
-export const ProductCard = () => {
-  return (
-    <div className="productCard">
-        <img src="tomato.jpg"/>
-        <p><b>Tomato</b></p>
-        <p>$1500</p>
+    return (
+      <div className="productCard">
+        <img src={product.img} alt={product.name} />
+        <p><b>{product.name}</b></p>
+        <p>${product.price}</p>
         <button className="addToCartBtn">Add to Cart</button>
-    </div>
-  )
+      </div>
+    )
+  }
 }
