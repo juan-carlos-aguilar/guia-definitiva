@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, useState } from "react";
 import './App.css';
 import { NavBar } from "./components/navBar";
 import { AllProducts } from "./pages/allProducts";
@@ -9,7 +9,14 @@ class App extends Component {
       { name: 'Tomato', price: 1200, img: '/img/tomato.jpg' },      
       { name: 'Green Peas', price: 1100, img: '/img/arbejas.jpg' },
       { name: 'Lettuce', price: 1300, img: '/img/lettuce.jpg' }
-    ]
+    ],
+    prodCount: [
+      //{ name: 'Tomato', price: 1200, img: '/img/tomato.jpg', cantidad: },
+    ],
+  }
+
+  addToCart = (product) => {
+    console.log(product)
   }
 
   render() {
@@ -17,7 +24,7 @@ class App extends Component {
       <div className="App">
         <NavBar />
         <AllProducts 
-          addToCart={() => console.log('Does nothing atm')}
+          addToCart={this.addToCart}
           products={this.state.products}
         />
       </div>
