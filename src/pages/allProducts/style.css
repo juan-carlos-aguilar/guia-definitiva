@@ -1,6 +1,10 @@
+h3 {
+    text-align: center;
+}
 .allProductsContainer {
+    width: 75%;
+    margin: 10px auto;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    width: 100%;
+    justify-content: space-evenly;
 }
