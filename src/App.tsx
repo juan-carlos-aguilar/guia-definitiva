@@ -1,6 +1,6 @@
 import { Component, useState } from "react";
 import './App.css';
-import { NavBar } from "./components/navBar";
+import NavBar from "./components/navBar";
 import { AllProducts } from "./pages/allProducts";
 
 class App extends Component {
@@ -8,21 +8,36 @@ class App extends Component {
     products: [
       { name: 'Tomato', price: 1200, img: '/img/tomato.jpg' },      
       { name: 'Green Peas', price: 1100, img: '/img/arbejas.jpg' },
-      { name: 'Lettuce', price: 1300, img: '/img/lettuce.jpg' }
+      { name: 'Lettuce', price: 1300, img: '/img/lettuce.jpg' },
     ],
-    prodCount: [
-      //{ name: 'Tomato', price: 1200, img: '/img/tomato.jpg', cantidad: },
-    ],
+    cart: [],
   }
 
   addToCart = (product) => {
-    console.log(product)
+    const { cart } = this.state;
+    if (cart.find(x => x.name === product.name)) {
+      const newCart = cart.map(x => x.name === product.name
+    ? ({
+        ...x,
+        quantity: x.quantity + 1
+      })
+    : x
+      )
+      return this.setState({ cart: newCart })
+    }
+    
+    return this.setState({
+      cart: this.state.cart.concat({
+        ...product,
+        quantity: 1,
+      })
+    })
   }
 
   render() {
     return (
       <div className="App">
-        <NavBar />
+        <NavBar cart={this.state.cart} />
         <AllProducts 
           addToCart={this.addToCart}
           products={this.state.products}

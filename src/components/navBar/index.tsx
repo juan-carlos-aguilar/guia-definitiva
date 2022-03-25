@@ -1,14 +1,22 @@
-import React from 'react'
+import React, { Component } from 'react'
+import BubbleAlert from '../bubbleAlert';
 import './style.css';
 
-export const NavBar = () => {
-  return (
-    <nav>
+export default class NavBar extends Component {
+  render() {
+    const { cart } = this.props
+    const quantity = cart.reduce((acc, el) => acc + el.quantity, 0);
+
+    return (
+      <nav>
         <h4>Shop</h4>
-        <button className="cart">
-            Cart
-        </button>
-        {/* <span className="badge" /> */}
-    </nav>
-  )
+        <span className="bubble">
+          <BubbleAlert 
+            value={quantity} 
+          />
+        </span>
+        <button className="cart">Cart</button>
+      </nav>
+    )
+  }
 }

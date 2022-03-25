@@ -24,3 +24,9 @@ nav h4 {
 .cart:hover {
     background-color: rgb(62, 109, 34);
 }
+
+.bubble {
+    position: relative;
+    left: 12;
+    top: 20;
+}
