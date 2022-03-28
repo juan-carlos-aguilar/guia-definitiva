@@ -1,22 +1,30 @@
-import './App.css';
+import { useState } from 'react';
 
-function App() {
-  const submit = (e) => {
-    e.preventDefault()
-    const data = Array.from(new FormData(e.target))
-    console.log(Object.fromEntries(data))
+const App = () => {
+  const [ value, setValue ] = useState({normal: 'default', text: ''})
+  const handleChange = (e) => {
+    setValue((state) => ({
+      ...state,
+      [e.target.name]: e.target.value
+    }))
   }
 
+  console.log(value)
   return (
-    <form action="">
-      <div>
-        <span>lala</span>
-        <input name='campo' />
-      </div>
-      <input name='campo2' />
-      <input type="submit" value='Enviar' />
-    </form>
+    <div>
+      {value.length < 5 ? <span>longitud minima de 5</span> : null}\
+      <input type="text" name="normal" value={value} onChange={handleChange} />
+      <textarea name='texto' onChange={handleChange} value={value.text} />
+
+      <select value={value.select} name="select" onChange={handleChange}>
+        <option value="">Seleccionar</option>
+        <option value="feliz">Feliz</option>
+        <option value="triste">Triste</option>
+        <option value="emocionado">Emocionado</option>
+        <option value="enojado">Enojado</option>
+      </select>
+    </div>
   )
 }
 
-export default App
+export default App;
