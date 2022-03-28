@@ -1,14 +1,22 @@
-import { Component } from "react";
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <h1>Initial Commit</h1>
-      </div>
-    )
+function App() {
+  const submit = (e) => {
+    e.preventDefault()
+    const data = Array.from(new FormData(e.target))
+    console.log(Object.fromEntries(data))
   }
+
+  return (
+    <form action="">
+      <div>
+        <span>lala</span>
+        <input name='campo' />
+      </div>
+      <input name='campo2' />
+      <input type="submit" value='Enviar' />
+    </form>
+  )
 }
 
 export default App
