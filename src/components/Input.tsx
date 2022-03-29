@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useField } from 'formik'
 
+// Adding styles with Styled-components
 const Control = styled.div`
     margin-bottom: 20px;
 `
@@ -22,6 +23,7 @@ const MyInput = styled.input`
 const ErrorMessage = styled.div`
     color: #f00;
 `
+
 const Input = ({ label, ...props }) => {
     const [field, meta] = useField(props)
     return (

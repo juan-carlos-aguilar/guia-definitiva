@@ -2,6 +2,8 @@
 import styled from 'styled-components';
 import { Formik, Form } from 'formik';
 import Input from './components/Input'
+import Button from './components/Button'
+
 
 // Adding styles with Styled-components
 const Container = styled.div`
@@ -18,9 +20,18 @@ const Section = styled.section`
   box-shadow: 0px 2px 3px rgb(0,0,0,0.3);
 `
 
-function App() {
-  const handleSubmit = () => {
+const compoundInterest = (deposit, contribution, years, rate) => {
+  let total = deposit
+  for (let i = 0; i < years; i++) {
+    total = (total + contribution) * (rate + 1)
+  }
 
+  return Math.round(total)
+}
+function App() {
+  const handleSubmit = ({ deposit, contribution, years, rate }) => {
+    const val = compoundInterest(Number(deposit), Number(contribution), Number(years), Number(rate))
+    console.log(val)
   }
 
   return (
@@ -40,6 +51,7 @@ function App() {
             <Input name="contribution" label="Contribucion Anual" />
             <Input name="years" label="Años" />
             <Input name="rate" label="Interes estimado" />
+            <Button>Calcular</Button>
           </Form>
         </Formik>
       </Section>
