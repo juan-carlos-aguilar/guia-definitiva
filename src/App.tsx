@@ -1,14 +1,25 @@
-import { Component } from "react";
+import { useState } from 'react';
+import Titulo from './components/Titulo';
+import MyForm from './components/MyForm';
+import MyList from './components/MyList';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <h1>Initial Commit</h1>
-      </div>
-    )
+function App() {
+  const [valores, setValores] = useState([])
+  const handleSubmit = (values) => {
+    setValores([
+      ...valores,
+      values
+    ])
   }
+
+  return (
+    <div>
+      <Titulo>Mi Titulo</Titulo>
+      <MyForm onSubmit={handleSubmit} />
+      <MyList data={valores} />
+    </div>
+  )
 }
 
 export default App
