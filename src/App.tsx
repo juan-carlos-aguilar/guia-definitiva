@@ -13,7 +13,7 @@ const App = () => {
   console.log(value)
   return (
     <div>
-      {value.length < 5 ? <span>longitud minima de 5</span> : null}\
+      {value.length < 5 ? <span>longitud minima de 5</span> : null}
       <input type="text" name="normal" value={value} onChange={handleChange} />
       <textarea name='texto' onChange={handleChange} value={value.text} />
 
