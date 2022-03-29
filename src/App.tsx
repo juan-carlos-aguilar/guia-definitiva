@@ -1,5 +1,5 @@
 import { Component } from "react";
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import './App.css';
 
 // Simple styled component
@@ -31,6 +31,21 @@ const StyledLink = styled(Link)`
   color: blue;
 `
 
+const girar = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`
+
+const Rotar = styled.div`
+  display: inline-block;
+  animation: ${girar} 2s linear infinite;
+`
+
 function App() {
   return (
     <div className="App">
@@ -39,7 +54,8 @@ function App() {
       <Button>Enviar</Button>
       <Button primary>Enviar</Button><br/>
       <Link>Link</Link><br />
-      <StyledLink>Styled Link</StyledLink>
+      <StyledLink>Styled Link</StyledLink><br/>
+      <Rotar>Carlos</Rotar>
     </div>
   )
 }
