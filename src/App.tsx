@@ -1,11 +1,18 @@
-import { Component } from "react";
-import './App.css';
+//import './App.css';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+`
 
 function App() {
     return (
-      <div className="App">
-        <h1>Initial Commit</h1>
-      </div>
+      <Container>
+        Carlos
+      </Container>
     )
 }
 
