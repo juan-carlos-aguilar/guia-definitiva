@@ -1,5 +1,6 @@
+import { memo } from "react"
 const Titulo = ({ children }) => {
-    console.log('Rendering title')
+    console.log('Rendering title', children)
 
     return(
         <div>
@@ -8,4 +9,4 @@ const Titulo = ({ children }) => {
     )
 }
 
-export default Titulo
+export default memo(Titulo)

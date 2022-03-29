@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-const Li = ({ fullname }) => {
+const Li = memo(({ fullname }) => {
     console.log(`Render ${fullname}`)
 
     return (
@@ -8,7 +8,7 @@ const Li = ({ fullname }) => {
             {fullname}
         </li>
     )
-}
+})
 
 const MLi = memo(Li)
 
