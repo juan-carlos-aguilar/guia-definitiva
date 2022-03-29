@@ -31,7 +31,7 @@ const Input = ({ label, ...props }) => {
             <Label>{label}</Label>
             <MyInput {...field} {...props} />
             {meta.touched && meta.error ? (
-                <ErrorMessage>{meta.errror}</ErrorMessage>
+                <ErrorMessage>{meta.error}</ErrorMessage>
             ) : null}
         </Control>
     )
