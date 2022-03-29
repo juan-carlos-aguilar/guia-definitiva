@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 const Li = ({ fullname }) => {
     console.log(`Render ${fullname}`)
 
@@ -8,12 +10,14 @@ const Li = ({ fullname }) => {
     )
 }
 
+const MLi = memo(Li)
+
 const MyList = ({ data }) => {
     console.log('Render list')
     return(
         <ul>
             {data.map(x =>
-                <Li 
+                <MLi 
                     key={x.name + x.lastname}
                     fullname={`${x.name} ${x.lastname}`}
                 />
