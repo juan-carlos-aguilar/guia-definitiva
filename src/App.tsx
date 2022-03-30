@@ -1,10 +1,25 @@
-import { useDebugValue, useState } from "react";
+import { useState } from "react";
+import { combineReducers } from "redux";
 import { useSelector, useDispatch } from "react-redux";
 
-const initialState = {
-  entities: [],
-  filter: "all",
-};
+export const asyncMiddleware = store => next => action => {
+  if (typeof action === 'function') {
+    return action(store.dispatch, store.getState)
+  }
+  return next(action)
+}
+
+export const fetchThunk = () => async dispatch => {
+  dispatch({ type: 'todos/pending' })
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/todos')
+    const data = await response.json()
+    const todos = data.slice(0, 10)
+    dispatch({ type: 'todos/fulfilled', payload: todos })
+  } catch(e) {
+    dispatch({ type: 'todos/error', error: e.message })
+  }
+}
 
 export const filterReducer = (state = "all", action) => {
   switch (action.type) {
@@ -17,6 +32,9 @@ export const filterReducer = (state = "all", action) => {
 
 export const todosReducer = (state = [], action) => {
   switch (action.type) {
+    case 'todos/fulfilled': {
+      return action.payload
+    }
     case "todo/add": {
       return state.concat({ ...action.payload });
     }
@@ -35,43 +53,10 @@ export const todosReducer = (state = [], action) => {
   }
 };
 
-export const reducer = (state = initialState, action) => {
-  return {
-    entities: todosReducer(state.entities, action),
-    filter: filterReducer(state.filter, action),
-  };
-};
-
-// Reducer, handles complete/incomplete states
-// export const reducer = (state = initialState, action) => {
-//   switch (action.type) {
-//     case 'todo/add': {
-//       return {
-//         ...state,
-//         entities: state.entities.concat({ ...action.payload })
-//       }
-//     }
-//     case 'todo/complete': {
-//       const newTodos = state.entities.map(todo => {
-//         if (todo.id === action.payload.id) {
-//           return { ...todo, completed: !todo.completed }
-//         }
-//         return todo
-//       })
-//       return {
-//         ...state,
-//         entities: newTodos
-//       }
-//     }
-//     case 'filter/set': {
-//       return {
-//         ...state,
-//         filter: action.payload,
-//       }
-//     }
-//   }
-//   return state
-// }
+export const reducer = combineReducers({
+  entities: todosReducer,
+  filter: filterReducer,
+})
 
 const TodoItem = ({ todo }) => {
   const dispatch = useDispatch();
@@ -133,6 +118,7 @@ const App = () => {
       >
         Incomplete
       </button>
+      <button onClick={() => dispatch(fetchThunk())}>Fetch</button>
       <ul>
         {todos.map((todo) => (
           <TodoItem key={todo.id} todo={todo} />
