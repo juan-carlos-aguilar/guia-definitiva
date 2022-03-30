@@ -1,19 +1,11 @@
-import { combineReducers } from "redux";
-import { makeFetchingReducer, makeSetReducer } from "./utils";
+import { combineReducers } from 'redux';
+import { mac, makeFetchingReducer, makeSetReducer, reduceReducers, makeCrudReducer } from './utils';
 
-export const setPending = () => {
-  return {
-    type: 'todos/pending',
-  };
-};
-
-export const setFulfilled = (payload) => ({ type: 'todos/fulfilled', payload });
-
-export const setError = (e) => ({ type: 'todos/fulfilled', error: e.message });
-
-export const setComplete = () => ({ type: 'todo/complete', payload });
-
-export const setFilter = (payload) => ({ type: 'filter/set', payload });
+export const setPending = mac('todos/pending')
+export const setFulfilled = mac('todos/fulfilled', 'payload')
+export const setError = mac('todos/error', 'error')
+export const setComplete = mac('todo/complete', 'payload')
+export const setFilter = mac('filter/set', 'payload')
 
 export const fetchThunk = () => async (dispatch) => {
   dispatch(setPending());
@@ -28,37 +20,18 @@ export const fetchThunk = () => async (dispatch) => {
 };
 
 // Reducers
-export const filterReducer = makeSetReducer(['filter/set'])
+export const filterReducer = makeSetReducer(['filter/set']);
 
 export const fetchingReducer = makeFetchingReducer([
   'todos/pending',
   'todos/fulfilled',
   'todos/rejected',
-])
-//
+]);
 
-export const todosReducer = (state = [], action) => {
-  switch (action.type) {
-    case 'todos/fulfilled': {
-      return action.payload;
-    }
-    case 'todo/add': {
-      return state.concat({ ...action.payload });
-    }
-    case 'todo/complete': {
-      const newTodos = state.map((todo) => {
-        if (todo.id === action.payload.id) {
-          return { ...todo, completed: !todo.completed };
-        }
+const fulfilledReducer = makeSetReducer(['todos/fulfilled'])
+const crudReducer = makeCrudReducer(['todo/add', 'todo/complete'])
 
-        return todo;
-      });
-      return newTodos;
-    }
-    default:
-      return state;
-  }
-};
+export const todosReducer = reduceReducers(crudReducer, fulfilledReducer)
 
 export const reducer = combineReducers({
   todos: combineReducers({
@@ -70,16 +43,19 @@ export const reducer = combineReducers({
 
 // Selectors
 export const selectTodos = (state) => {
-  const { todos: { entities }, filter } = state;
+  const {
+    todos: { entities },
+    filter,
+  } = state;
   if (filter === 'complete') {
     return entities.filter((todo) => todo.completed);
   }
-  
+
   if (filter === 'incomplete') {
     return entities.filter((todo) => !todo.completed);
   }
-  
+
   return entities;
 };
 
-export const selectStatus = state => state.todos.status
+export const selectStatus = (state) => state.todos.status;
