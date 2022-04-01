@@ -23,6 +23,7 @@ describe('Index', () => {
         it('return pokemones', async() => {
             global.fetch = jest.fn()
                 .mockImplementation(url => {
+                    
                     return new Promise(resolve => {
                         resolve({
                             json: () => Promise.resolve({
