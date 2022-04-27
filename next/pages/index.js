@@ -1,15 +1,19 @@
 import Link from 'next/link'
+import '../styles/Home.module.css'
 
 const Pokemon = ({ pokemon }) => {
   const id = pokemon.url.split('/').filter(x => x).pop()
   return (
-    <li><Link href={`/pokemones/${id}`}>{pokemon.name}</Link></li>
+    <li>
+      <Link href={`/pokemones/${id}`}>{pokemon.name}</Link>
+    </li>
   )
 }
+
 export default function Pokemones({ pokemones }) {
   return (
-    <div>
-      <p data-testid='titulo'>Mi App de Pokemones</p>
+    <div className='App'>
+      <h2>Mi App de Pokemones</h2>
       <ul>
         {pokemones.map(pokemon => <Pokemon pokemon={pokemon} key={pokemon.name} />)}
       </ul>
@@ -26,3 +30,4 @@ export const getStaticProps = async () => {
   }
 
 }
+

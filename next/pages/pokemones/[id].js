@@ -7,9 +7,10 @@ const Pokemon = ({ data }) => {
   console.log(router)
 
   return (
-    <div>
+    <div className='App'>
       <h1>{data.name} número #{data.id}</h1>
       <Image src={data.sprites.front_default} width={400} height={400} />
+      <br />
       <Link href="/">Volver al inicio</Link>
     </div>
   )
